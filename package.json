@@ -1,0 +1,1 @@
+{ "name": "aircase", "version": "1.0.0", "description": "Turns bad air into an evidence-backed pollution complaint", "scripts": { "test": "node --test" }, "license": "MIT" }
