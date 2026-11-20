@@ -100,7 +100,9 @@
       ai.disabled = true; status('Polishing\u2026');
       try {
         const r = await fetch('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: ta.value, lang: sel.value }) });
-        const d = await r.json();
+        const raw = await r.text();
+        let d = {};
+        try { d = JSON.parse(raw); } catch (x) { d = { error: 'The AI service is not responding (server error ' + r.status + ').' }; }
         if (!r.ok) throw new Error(d.error || 'AI polish failed');
         ta.value = d.text; status('Polished. Check the numbers before sending.');
       } catch (e) { status(e.message + ' Your draft above is still ready to send.', true); }
